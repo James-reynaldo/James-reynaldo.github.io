@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>James Reynaldo · Test Automation & Robotics</title>
+<meta name="description" content="James Reynaldo, M.Sc. Computer Engineering (TU Berlin). Python test and measurement automation for photonic chips at Fraunhofer HHI, robotics, state estimation and embedded control.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14202e; --muted:#5a6878; --line:#e3e8ef; --bg:#f7f9fb; --card:#ffffff;
+    --accent:#1F3A5F; --accent-soft:#EBEFF5; --hi:#2f7d6d;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:16px}
+  a{color:var(--accent)}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  /* nav */
+  nav{position:sticky;top:0;z-index:10;background:rgba(247,249,251,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+  nav .brand{font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+  nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:14px}
+  nav ul a{color:var(--muted);text-decoration:none}
+  nav ul a span{font-family:"JetBrains Mono",monospace;color:var(--accent);margin-right:4px;font-size:12px}
+  nav ul a:hover{color:var(--ink)}
+  @media(max-width:760px){nav ul{display:none}}
+  /* hero */
+  header.hero{padding:72px 0 56px}
+  .hero .wrap{display:grid;grid-template-columns:1fr 240px;gap:48px;align-items:center}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:#e6f2ef;color:var(--hi);font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px}
+  .badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--hi)}
+  h1{font-size:44px;line-height:1.1;letter-spacing:-.02em;margin:18px 0 10px}
+  .lede{font-size:21px;color:var(--ink);margin:0 0 16px;max-width:620px}
+  .sub{color:var(--muted);max-width:620px;margin:0 0 24px}
+  .btns{display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-block;padding:10px 16px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .portrait{width:240px;height:300px;border-radius:16px;object-fit:cover;box-shadow:0 10px 30px rgba(20,32,46,.15)}
+  @media(max-width:760px){.hero .wrap{grid-template-columns:1fr}.portrait{width:160px;height:200px;order:-1}h1{font-size:34px}.lede{font-size:18px}}
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:8px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .stat b{display:block;font-size:24px;color:var(--accent);letter-spacing:-.01em}
+  .stat span{font-size:13px;color:var(--muted)}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+  /* sections */
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--accent);letter-spacing:.04em}
+  h2{font-size:28px;letter-spacing:-.01em;margin:6px 0 24px}
+  h3{font-size:18px;margin:0 0 4px}
+  .meta{color:var(--muted);font-size:14px;margin:0 0 10px}
+  ul.dots{margin:8px 0 0;padding-left:18px}
+  ul.dots li{margin:4px 0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:760px){.two{grid-template-columns:1fr}}
+  .job{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:16px}
+  .job .head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .tag{font-family:"JetBrains Mono",monospace;font-size:12px;background:var(--accent-soft);color:var(--accent);padding:3px 8px;border-radius:6px}
+  /* project cards */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  details.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;transition:box-shadow .2s}
+  details.card:hover{box-shadow:0 6px 20px rgba(20,32,46,.08)}
+  details.card[open]{grid-column:1/-1}
+  details.card summary{list-style:none;cursor:pointer}
+  details.card summary::-webkit-details-marker{display:none}
+  .cat{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--hi);text-transform:uppercase;letter-spacing:.06em}
+  .card h3{margin-top:6px}
+  .card .one{color:var(--muted);margin:6px 0 10px}
+  .more{font-size:14px;font-weight:600;color:var(--accent)}
+  details[open] .more .o{display:none}
+  details:not([open]) .more .c{display:none}
+  .body{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  figure{margin:16px 0 0}
+  figure img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+  figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+  .figs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.figs{grid-template-columns:1fr}}
+  .note{font-size:13px;color:var(--muted);font-style:italic}
+  /* skills */
+  .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:760px){.skills{grid-template-columns:1fr}}
+  .skill{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .skill h3{font-size:15px;margin-bottom:8px}
+  .skill p{margin:0;color:var(--muted);font-size:14px}
+  /* contact */
+  .contact{background:var(--accent);color:#fff;border-radius:18px;padding:36px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .contact h2{color:#fff;margin:0 0 6px}
+  .contact p{margin:0;color:#d6dfeb}
+  .contact .btn{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff}
+  .contact .btn.primary{background:#fff;color:var(--accent)}
+  footer{padding:28px 0 40px;color:var(--muted);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">James Reynaldo</a>
+    <ul>
+      <li><a href="#about"><span>01</span>About</a></li>
+      <li><a href="#experience"><span>02</span>Experience</a></li>
+      <li><a href="#projects"><span>03</span>Projects</a></li>
+      <li><a href="#education"><span>04</span>Education</a></li>
+      <li><a href="#skills"><span>05</span>Skills</a></li>
+      <li><a href="#contact"><span>06</span>Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="badge">Open to jobs and PhD positions · from March 2027</span>
+      <h1>James Reynaldo</h1>
+      <p class="lede">I write the software that makes lab hardware and robots measure and move: photonic chip test stations, stepper-motor rigs and robot arms.</p>
+      <p class="sub">M.Sc. Computer Engineering at TU Berlin (Robotics and Biology Lab). Research assistant in photonic test automation at Fraunhofer HHI since 2023. Based in Berlin; English, German (C1) and Indonesian.</p>
+      <div class="btns">
+        <a class="btn primary" href="#projects">See my projects</a>
+        <a class="btn" href="https://www.linkedin.com/in/james-reynaldo/">LinkedIn</a>
+        <a class="btn" href="https://github.com/James-reynaldo">GitHub</a>
+        <a class="btn" href="mailto:jamesreynaldo3@gmail.com">Email</a>
+      </div>
+    </div>
+    <img class="portrait" src="img/james.jpg" alt="Portrait of James Reynaldo">
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">01 · About</div>
+    <h2>Hardware, measurements and algorithms in one hand</h2>
+    <div class="two">
+      <div>
+        <p>My path runs one layer up at a time while keeping the layer below in my hands. I built a motor from 3D-printed parts in my bachelor thesis, wrote closed-loop stepper-motor firmware and a Python operator program for a wind-tunnel probe, automated a photonic chip test station at Fraunhofer HHI, and now work on state estimation and adaptive robot behaviour in my master's thesis.</p>
+        <p>I like checking results from more than one direction. In my bachelor thesis, finite-element simulation, an analytic model and load tests agreed on the motor torque; in my master's thesis I swept 56 parameters before trusting any conclusion.</p>
+      </div>
+      <div>
+        <div class="stats">
+          <div class="stat"><b>3½+ yrs</b><span>at Fraunhofer HHI alongside study</span></div>
+          <div class="stat"><b>1.3</b><span>B.Eng. with distinction, Best Graduate</span></div>
+          <div class="stat"><b>81 paths</b><span>9×9 MMI measured semi-automatically in ~1.5 h</span></div>
+          <div class="stat"><b>1.0</b><span>AI &amp; Robotics Lab (ball-catching robot)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow">02 · Experience</div>
+    <h2>Work</h2>
+
+    <div class="job">
+      <div class="head">
+        <div><h3>Research Assistant, Photonic Test Automation</h3><p class="meta">Fraunhofer Heinrich Hertz Institute (HHI), Hybrid PICs group · Berlin · part-time</p></div>
+        <p class="meta">February 2023 – Present</p>
+      </div>
+      <ul class="dots">
+        <li>Automated fiber-to-chip coupling on a photonic integrated circuit (PIC) test station with Thorlabs stepper stages and NanoTrak auto-alignment in SweepMe!: a full 81-path measurement of a 9×9 MMI runs semi-automatically in about 1.5 hours and prompts the operator only when needed.</li>
+        <li>Adapted Python instrument drivers for an EXFO T100 tunable laser (CTP10) and an Agilent laser: wavelength sweeps, power settings and power readings.</li>
+        <li>Wrote PyVISA drivers and automated measurement sequences for characterising optical isolators; ran passive and active PIC measurements.</li>
+        <li>Created wafer mask designs with the Python PDK Nazca and KLayout, designed CAD parts for the setups and debugged measurement hardware.</li>
+        <li>The setup was featured by SweepMe! as a showcase of automated hybrid-PIC testing (2026).</li>
+      </ul>
+      <div class="tags"><span class="tag">Python</span><span class="tag">PyVISA</span><span class="tag">SweepMe!</span><span class="tag">EXFO T100 / CTP10</span><span class="tag">Thorlabs NanoTrak</span><span class="tag">Nazca</span><span class="tag">KLayout</span></div>
+    </div>
+
+    <div class="job">
+      <div class="head">
+        <div><h3>Hardware Development Intern</h3><p class="meta">Silver Atena GmbH (automotive engineering) · Munich</p></div>
+        <p class="meta">August 2022 – November 2022</p>
+      </div>
+      <ul class="dots">
+        <li>Designed the EAGLE schematic and 4-layer PCB of a test setup that switches about 500 A through current sensors, replacing IGBTs with parallel SiC MOSFETs to cut switching time and stray inductance.</li>
+        <li>Simulated the gate-driver stage in LTspice and characterised Hall-effect current sensors on the previous setup with an oscilloscope.</li>
+      </ul>
+      <div class="tags"><span class="tag">EAGLE</span><span class="tag">LTspice</span><span class="tag">SiC MOSFET</span><span class="tag">Oscilloscope</span></div>
+    </div>
+
+    <div class="job">
+      <div class="head">
+        <div><h3>Student Tutor, Electrical Engineering Fundamentals</h3><p class="meta">HTW Berlin · taught in German</p></div>
+        <p class="meta">July 2021 – July 2022</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow">03 · Projects</div>
+    <h2>Selected work</h2>
+    <div class="grid">
+
+      <details class="card">
+        <summary>
+          <div class="cat">Test automation · Fraunhofer HHI</div>
+          <h3>Semi-automatic photonic chip test station</h3>
+          <p class="one">Fiber alignment, laser sweeps and power readings chained into one Python measurement sequence.</p>
+          <span class="more"><span class="o">Read more →</span><span class="c">Close ↑</span></span>
+        </summary>
+        <div class="body">
+          <p>Measuring a photonic chip means coupling light into waveguides a few micrometres wide, again and again, for every input and output. I integrated Thorlabs stepper stages (coarse positioning) and NanoTrak controllers (fine alignment) into SweepMe! sequences, and adapted drivers for an EXFO T100 tunable laser with CTP10 and an Agilent laser for wavelength sweeps and power readings.</p>
+          <ul class="dots">
+            <li>A full 9×9 MMI, all 81 input–output paths, now runs in about 1.5 hours; the software asks the operator for input only when needed.</li>
+            <li>Results are saved as JSON in the group's consistent data format.</li>
+            <li>Also: PyVISA drivers and measurement sequences for optical isolators.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="cat">Research · Master's thesis</div>
+          <h3>Parameter robustness of adaptive robot behaviour</h3>
+          <p class="one">56 parameters × 5 levels × 4 scenarios: which parameters actually decide whether a robot succeeds?</p>
+          <span class="more"><span class="o">Read more →</span><span class="c">Close ↑</span></span>
+        </summary>
+        <div class="body">
+          <p>Robotics and Biology Laboratory, TU Berlin (advisors Prof. Dr. Oliver Brock, Vito Mengers), planned submission January 2027. AICON produces behaviour by linking EKF-based state estimators through differentiable interconnections, with gradients computed in PyTorch.</p>
+          <ul class="dots">
+            <li>Built a sensitivity and ANOVA interaction pipeline and swept 56 parameters at 5 levels on a simulated Franka Panda drawer-opening task in MuJoCo (10 trials per configuration).</li>
+            <li>Scenarios: nominal, 10× sensor noise, random external disturbances and a 0.5 m wrong prior.</li>
+            <li>Finding: sensitivity is sparse; a few geometry-dependent thresholds dominate, and uncertainty thresholds must be tuned together with estimator noise parameters.</li>
+            <li>Under high noise, the filter's represented uncertainty shrinks without the estimate becoming more accurate.</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">MuJoCo</span><span class="tag">EKF</span><span class="tag">ANOVA</span></div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="cat">Robotics · Team of 3 · Grade 1.0</div>
+          <h3>Gravity Panda: a robot that catches a ball</h3>
+          <p class="one">RGB-D perception, YOLO detection and KOMO trajectory optimisation, moved from simulation to a real Franka Panda.</p>
+          <span class="more"><span class="o">Read more →</span><span class="c">Close ↑</span></span>
+        </summary>
+        <div class="body">
+          <p>AI and Robotics Lab Course, TU Berlin, winter 2025/26. In a team of three, we built a real-time system in which a Franka Panda catches a thrown ball with a cup: Intel RealSense RGB-D camera, YOLO detection with custom-trained models, ArUco calibration into robot world coordinates, and joint-space trajectory optimisation with KOMO.</p>
+          <p><a href="https://github.com/James-reynaldo/gravity-panda">Code on GitHub →</a> · <a href="https://www.linkedin.com/feed/update/urn:li:activity:7435314161997447168/">Video on LinkedIn →</a></p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">YOLO</span><span class="tag">RealSense</span><span class="tag">KOMO</span><span class="tag">Sim-to-real</span></div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="cat">Embedded · Team of 2</div>
+          <h3>MoVe: wind-tunnel probe positioning</h3>
+          <p class="one">STM32 firmware and a Python/Qt operator program that move a probe with 4 encoder-equipped stepper motors.</p>
+          <span class="more"><span class="o">Read more →</span><span class="c">Close ↑</span></span>
+        </summary>
+        <div class="body">
+          <p>TU Berlin, Chair of Aircraft Propulsion, 2025, with Matthias Klose. The system positions a Prandtl probe to measure the flow field in front of a compressor. I wrote the STM32 firmware as a UART-commanded state machine (rest, edit, run) driving 4 NEMA 17 motors with 1,000 PPR encoders; we built the Python/Qt GUI that generates measurement grids and closes the loop on encoder feedback with acknowledged commands.</p>
+          <div class="figs">
+            <figure><img src="img/move-setup.jpg" alt="Probe travel range in the wind tunnel"><figcaption>Angular and radial travel range of the probe.</figcaption></figure>
+            <figure><img src="img/move-gui.jpg" alt="Python/Qt operator GUI"><figcaption>Operator GUI with measurement grid.</figcaption></figure>
+          </div>
+          <figure><img src="img/move-system.jpg" alt="Control system diagram"><figcaption>Control chain: PC (Python/Qt) ↔ UART ↔ STM32 ↔ drivers and encoders. From our poster (March 2025).</figcaption></figure>
+          <p><a href="https://github.com/James-reynaldo/MoVe-Traversensteurung">Code on GitHub →</a></p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="cat">State estimation · Course project</div>
+          <h3>EKF localisation and SE(3) pose optimisation</h3>
+          <p class="one">Extended Kalman Filter fusing odometry and LIDAR landmarks, plus sliding-window stereo pose estimation.</p>
+          <span class="more"><span class="o">Read more →</span><span class="c">Close ↑</span></span>
+        </summary>
+        <div class="body">
+          <ul class="dots">
+            <li>EKF for 2D localisation with 17 landmarks: nonlinear motion and observation models with Jacobians, angle wrapping, 3σ covariance ellipses, evaluated against ground truth.</li>
+            <li>Sparse batch least-squares estimator fusing odometry and a range sensor.</li>
+            <li>Sliding-window batch optimisation over SE(3) poses combining stereo-camera and odometry error terms (SciPy least squares).</li>
+            <li>Particle filter (Monte Carlo localisation) and occupancy-grid mapping in ROS/C++ in the Robotics course.</li>
+          </ul>
+          <p><a href="https://www.linkedin.com/feed/update/urn:li:activity:7399236108204810240/">EKF animation on LinkedIn →</a></p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">NumPy/SciPy</span><span class="tag">ROS</span><span class="tag">C++</span></div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="cat">Vision · Course project</div>
+          <h3>Event-based vision in ROS/C++</h3>
+          <p class="one">Image reconstruction, panoramic mosaicing and optical flow from event-camera data.</p>
+          <span class="more"><span class="o">Read more →</span><span class="c">Close ↑</span></span>
+        </summary>
+        <div class="body">
+          <ul class="dots">
+            <li>Per-pixel leaky-integrator image reconstruction, including convolved variants (Sobel, blur, Laplacian).</li>
+            <li>EKF-based panoramic mosaicing after Kim et al. (BMVC 2014).</li>
+            <li>Contrast-maximisation optical flow with a parameter study on window size (50k–200k events).</li>
+          </ul>
+          <p><a href="https://www.linkedin.com/feed/update/urn:li:activity:7399592880157388800/">Video on LinkedIn →</a></p>
+          <div class="tags"><span class="tag">C++</span><span class="tag">ROS</span><span class="tag">OpenCV</span></div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="cat">Hardware · Bachelor's thesis · Grade 1.3</div>
+          <h3>3D-printed axial-flux motor</h3>
+          <p class="one">A BLDC motor built from printed parts and 384 magnets, reaching 3,750 RPM.</p>
+          <span class="more"><span class="o">Read more →</span><span class="c">Close ↑</span></span>
+        </summary>
+        <div class="body">
+          <ul class="dots">
+            <li>Coreless 3-phase axial-flux design with hand-wound coils and a passive magnetic bearing.</li>
+            <li>Hall-sensor commutation firmware in MicroPython on a Raspberry Pi Pico.</li>
+            <li>Characterised with function generator and oscilloscope: coil resistance and inductance, speed, torque, back-EMF.</li>
+            <li>FEM simulation (0.0015 N·m), analytic model (0.00127 N·m) and load tests agreed.</li>
+          </ul>
+          <div class="tags"><span class="tag">FEMM</span><span class="tag">MicroPython</span><span class="tag">CAD / 3D printing</span></div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="cat">Robotics · Personal project</div>
+          <h3>Robot manipulation with ROS 2</h3>
+          <p class="one">Franka Panda object placement with OMPL RRT-Connect in C++ and custom collision-monitoring services.</p>
+          <span class="more"><span class="o">Read more →</span><span class="c">Close ↑</span></span>
+        </summary>
+        <div class="body">
+          <p>A ROS 2 framework in Robosuite/MuJoCo that places objects inside a cabinet using inverse kinematics and robot-state feedback, with OMPL's RRT-Connect for collision-free planning and real-time collision monitoring through custom ROS 2 services.</p>
+          <div class="tags"><span class="tag">ROS 2</span><span class="tag">C++</span><span class="tag">OMPL</span><span class="tag">MuJoCo</span></div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="eyebrow">04 · Education</div>
+    <h2>Education</h2>
+    <div class="job">
+      <div class="head"><div><h3>M.Sc. Computer Engineering</h3><p class="meta">Technische Universität Berlin</p></div><p class="meta">October 2023 – March 2027 (expected)</p></div>
+      <p class="meta" style="margin:0">Average 1.7 · 1.0 in AI and Robotics Lab, Hybrid Systems, Discrete Event Systems, Hardware Security Lab · thesis at the Robotics and Biology Laboratory</p>
+    </div>
+    <div class="job">
+      <div class="head"><div><h3>B.Eng. Information and Communication Technology</h3><p class="meta">HTW Berlin · taught in German</p></div><p class="meta">October 2020 – September 2023</p></div>
+      <p class="meta" style="margin:0">Final grade 1.3 with distinction · Best Graduate of the programme, summer semester 2023</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow">05 · Skills</div>
+    <h2>Tools I work with</h2>
+    <div class="skills">
+      <div class="skill"><h3>Lab automation &amp; test</h3><p>Python, PyVISA, SweepMe!, EXFO T100 tunable laser (CTP10), Agilent laser, Thorlabs stages and NanoTrak, oscilloscope, function generator</p></div>
+      <div class="skill"><h3>Robotics &amp; estimation</h3><p>ROS 2, ROS 1, MoveIt 2, OMPL, MuJoCo, Gazebo, Extended Kalman Filter, particle filter, batch and sliding-window optimisation, YOLO, OpenCV, RealSense</p></div>
+      <div class="skill"><h3>Embedded &amp; hardware</h3><p>STM32, Raspberry Pi Pico, UART, PCB design (EAGLE), LTspice, FEMM, CAD and 3D printing; photonic layout with Nazca and KLayout</p></div>
+      <div class="skill"><h3>Programming &amp; tooling</h3><p>Python, C/C++, MATLAB, PyTorch, NumPy, SciPy, Qt for Python, Linux, Git, Docker, SLURM</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <div class="eyebrow" style="color:#b9c8dc">06 · Contact</div>
+        <h2>Let's talk</h2>
+        <p>Available full-time from March 2027 for jobs and PhD positions in test automation, robotics and embedded systems.</p>
+      </div>
+      <div class="btns">
+        <a class="btn primary" href="mailto:jamesreynaldo3@gmail.com">jamesreynaldo3@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/james-reynaldo/">LinkedIn</a>
+        <a class="btn" href="https://github.com/James-reynaldo">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 James Reynaldo · Berlin</footer>
+</body>
+</html>
